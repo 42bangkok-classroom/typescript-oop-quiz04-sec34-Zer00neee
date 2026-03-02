@@ -9,5 +9,4 @@ export class MissionController {
   getSummary() {
     return this.missionService.getSummary();
   }
-  
 }
