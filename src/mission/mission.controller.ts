@@ -6,12 +6,12 @@ export class MissionController {
   constructor(private readonly missionService: MissionService) {}
 
   @Get()
-  findAll() { 
+  findAll() {
     return this.missionService.findAll();
   }
 
   @Get('summary')
-  getSummary() { 
+  getSummary() {
     return this.missionService.getSummary();
   }
 }
