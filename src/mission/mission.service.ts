@@ -25,7 +25,6 @@ export class MissionService {
         failed = failed + 1;
       }
     }
-
     return {
       ACTIVE: active,
       COMPLETED: completed,
