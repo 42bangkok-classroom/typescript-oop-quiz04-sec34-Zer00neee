@@ -1,0 +1,35 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class MissionService {
+  private readonly missions = [
+    { id: 1, codename: 'OPERATION_STORM', status: 'ACTIVE' },
+    { id: 2, codename: 'SILENT_SNAKE', status: 'COMPLETED' },
+    { id: 3, codename: 'RED_DAWN', status: 'FAILED' },
+    { id: 4, codename: 'BLACKOUT', status: 'ACTIVE' },
+    { id: 5, codename: 'ECHO_FALLS', status: 'COMPLETED' },
+    { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' },
+  ];
+
+  getSummary() {
+    let active = 0;
+    let completed = 0;
+    let failed = 0;
+
+    for (let i = 0; i < this.missions.length; i++) {
+      if (this.missions[i].status === 'ACTIVE') {
+        active = active + 1;
+      } else if (this.missions[i].status === 'COMPLETED') {
+        completed = completed + 1;
+      } else if (this.missions[i].status === 'FAILED') {
+        failed = failed + 1;
+      }
+    }
+
+    return {
+      ACTIVE: active,
+      COMPLETED: completed,
+      FAILED: failed,
+    };
+  }
+}
