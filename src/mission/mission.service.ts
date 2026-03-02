@@ -11,30 +11,30 @@ export class MissionService {
     { id: 3, codename: 'RED_DAWN', status: 'FAILED' },
     { id: 4, codename: 'BLACKOUT', status: 'ACTIVE' },
     { id: 5, codename: 'ECHO_FALLS', status: 'COMPLETED' },
-    { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' }
+    { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' },
   ];
 
   getSummary() {
     let active = 0;
     let completed = 0;
     let failed = 0;
-    for (let i = 0; i < this.missionsMock.length; i++) {
-      if (this.missionsMock[i].status === 'ACTIVE') active++;
-      if (this.missionsMock[i].status === 'COMPLETED') completed++;
-      if (this.missionsMock[i].status === 'FAILED') failed++;
+    for (const m of this.missionsMock) {
+      if (m.status === 'ACTIVE') active++;
+      if (m.status === 'COMPLETED') completed++;
+      if (m.status === 'FAILED') failed++;
     }
     return { ACTIVE: active, COMPLETED: completed, FAILED: failed };
   }
 
-  findAll() {
+  findAll(): IMission[] {
     const filePath = path.join(process.cwd(), 'data', 'missions.json');
     const fileData = fs.readFileSync(filePath, 'utf-8');
-    const allData = JSON.parse(fileData);
-    const finalMissions = [];
+    const allData = JSON.parse(fileData) as IMission[];
 
-    for (let i = 0; i < allData.length; i++) {
-      const mission = allData[i];
-      let days = -1; 
+    const finalMissions: IMission[] = [];
+
+    for (const mission of allData) {
+      let days = -1;
 
       if (mission.endDate !== null) {
         const start = new Date(mission.startDate);
@@ -44,7 +44,7 @@ export class MissionService {
         days = diffTime / oneDay;
       }
 
-      const newObj = {
+      const newObj: IMission = {
         id: mission.id,
         codename: mission.codename,
         status: mission.status,
@@ -52,7 +52,7 @@ export class MissionService {
         riskLevel: mission.riskLevel,
         startDate: mission.startDate,
         endDate: mission.endDate,
-        durationDays: days 
+        durationDays: days,
       };
 
       finalMissions.push(newObj);
