@@ -5,7 +5,7 @@ import { MissionController } from './mission/mission.controller';
 import { MissionService } from './mission/mission.service';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [AppController, MissionController],
   providers: [AppService, MissionService],
 })
