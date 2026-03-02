@@ -11,26 +11,20 @@ export class MissionService {
     { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' },
   ];
 
-  getSummary() {
-    let active = 0;
-    let completed = 0;
-    let failed = 0;
-
-    for (let i = 0; i < this.missions.length; i++) {
-      if (this.missions[i].status === 'ACTIVE') {
-        active = active + 1;
-      } else if (this.missions[i].status === 'COMPLETED') {
-        completed = completed + 1;
-      } else if (this.missions[i].status === 'FAILED') {
-        failed = failed + 1;
-      }
-    }
-
+   getSummary(): { ACTIVE: number; COMPLETED: number; FAILED: number } {
+    const activeCount = this.missions.filter(
+      (m) => m.status === 'ACTIVE',
+    ).length;
+    const completeCount = this.missions.filter(
+      (m) => m.status === 'COMPLETED',
+    ).length;
+    const failedCount = this.missions.filter(
+      (m) => m.status === 'FAILED',
+    ).length;
     return {
-      ACTIVE: active,
-      COMPLETED: completed,
-      FAILED: failed,
+      ACTIVE: activeCount,
+      COMPLETED: completeCount,
+      FAILED: failedCount,
     };
   }
-  
 }
